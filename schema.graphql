@@ -1,0 +1,18 @@
+type Proposal @entity {
+  id: ID!
+  proposer: Bytes! # address
+  targets: [Bytes!]!
+  values: [BigInt!]!
+  description: String!
+  votes: [Vote!] @derivedFrom(field: "proposal")
+  status: String!
+}
+
+type Vote @entity {
+  id: ID! # txHash + logIndex
+  voter: Bytes!
+  proposal: Proposal!
+  support: Int!
+  weight: BigInt!
+  reason: String
+}
